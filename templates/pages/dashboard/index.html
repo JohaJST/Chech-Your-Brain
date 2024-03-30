@@ -10,6 +10,8 @@
                 <a href="{% url 'dashboard_classroom' status='classroom' subject_id=i.id %}">
             {% elif status == 'classroom' %}
                 <a href="{% url 'dashboard_user' status='user' classroom_id=i.id %}">
+            {% elif status == 'user' %}
+                <a href="{% url 'dashboard_result' status='result' user_id=i.id classroom_id=i.classroom_id %}">
             {% endif %}
             <!-- small box -->
             <div class="small-box bg-{% random_list %}">
@@ -23,47 +25,274 @@
               </div>
             </div>
             </a>
+<!--                </a>-->
+<!--        </div>-->
         </div>
-
         {% endfor %}
     {% else %}
-        <div class="row">
-          <!-- ./col -->
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
+        <div class="card">
+                  <div class="card-body">
+                     <div class="collapse" id="datatable-1">
+                           <div class="card">
+                               <kbd class="bg-dark"><pre id="bootstrap-datatables" class="text-white"><code>
+&lt;table id="datatable" class="table data-table table-striped table-bordered" &gt;
+   &lt;thead&gt;
+      &lt;tr&gt;
+         &lt;th&gt;Name&lt;/th&gt;
+         &lt;th&gt;Position&lt;/th&gt;
+         &lt;th&gt;Office&lt;/th&gt;
+         &lt;th&gt;Age&lt;/th&gt;
+         &lt;th&gt;Start date&lt;/th&gt;
+         &lt;th&gt;Salary&lt;/th&gt;
+      &lt;/tr&gt;
+   &lt;/thead&gt;
+   &lt;tbody&gt;
+      &lt;tr&gt;
+         &lt;td&gt;Tiger Nixon&lt;/td&gt;
+         &lt;td&gt;System Architect&lt;/td&gt;
+         &lt;td&gt;Edinburgh&lt;/td&gt;
+         &lt;td&gt;61&lt;/td&gt;
+         &lt;td&gt;2011/04/25&lt;/td&gt;
+         &lt;td&gt;$320,800&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+         &lt;td&gt;Garrett Winters&lt;/td&gt;
+         &lt;td&gt;Accountant&lt;/td&gt;
+         &lt;td&gt;Tokyo&lt;/td&gt;
+         &lt;td&gt;63&lt;/td&gt;
+         &lt;td&gt;2011/07/25&lt;/td&gt;
+         &lt;td&gt;$170,750&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+         &lt;td&gt;Ashton Cox&lt;/td&gt;
+         &lt;td&gt;Junior Technical Author&lt;/td&gt;
+         &lt;td&gt;San Francisco&lt;/td&gt;
+         &lt;td&gt;66&lt;/td&gt;
+         &lt;td&gt;2009/01/12&lt;/td&gt;
+         &lt;td&gt;$86,000&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+         &lt;td&gt;Cedric Kelly&lt;/td&gt;
+         &lt;td&gt;Senior Javascript Developer&lt;/td&gt;
+         &lt;td&gt;Edinburgh&lt;/td&gt;
+         &lt;td&gt;22&lt;/td&gt;
+         &lt;td&gt;2012/03/29&lt;/td&gt;
+         &lt;td&gt;$433,060&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+         &lt;td&gt;Airi Satou&lt;/td&gt;
+         &lt;td&gt;Accountant&lt;/td&gt;
+         &lt;td&gt;Tokyo&lt;/td&gt;
+         &lt;td&gt;33&lt;/td&gt;
+         &lt;td&gt;2008/11/28&lt;/td&gt;
+         &lt;td&gt;$162,700&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+         &lt;td&gt;Brielle Williamson&lt;/td&gt;
+         &lt;td&gt;Integration Specialist&lt;/td&gt;
+         &lt;td&gt;New York&lt;/td&gt;
+         &lt;td&gt;61&lt;/td&gt;
+         &lt;td&gt;2012/12/02&lt;/td&gt;
+         &lt;td&gt;$372,000&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+         &lt;td&gt;Herrod Chandler&lt;/td&gt;
+         &lt;td&gt;Sales Assistant&lt;/td&gt;
+         &lt;td&gt;San Francisco&lt;/td&gt;
+         &lt;td&gt;59&lt;/td&gt;
+         &lt;td&gt;2012/08/06&lt;/td&gt;
+         &lt;td&gt;$137,500&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+         &lt;td&gt;Rhona Davidson&lt;/td&gt;
+         &lt;td&gt;Integration Specialist&lt;/td&gt;
+         &lt;td&gt;Tokyo&lt;/td&gt;
+         &lt;td&gt;55&lt;/td&gt;
+         &lt;td&gt;2010/10/14&lt;/td&gt;
+         &lt;td&gt;$327,900&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+         &lt;td&gt;Colleen Hurst&lt;/td&gt;
+         &lt;td&gt;Javascript Developer&lt;/td&gt;
+         &lt;td&gt;San Francisco&lt;/td&gt;
+         &lt;td&gt;39&lt;/td&gt;
+         &lt;td&gt;2009/09/15&lt;/td&gt;
+         &lt;td&gt;$205,500&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+         &lt;td&gt;Sonya Frost&lt;/td&gt;
+         &lt;td&gt;Software Engineer&lt;/td&gt;
+         &lt;td&gt;Edinburgh&lt;/td&gt;
+         &lt;td&gt;23&lt;/td&gt;
+         &lt;td&gt;2008/12/13&lt;/td&gt;
+         &lt;td&gt;$103,600&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+         &lt;td&gt;Jena Gaines&lt;/td&gt;
+         &lt;td&gt;Office Manager&lt;/td&gt;
+         &lt;td&gt;London&lt;/td&gt;
+         &lt;td&gt;30&lt;/td&gt;
+         &lt;td&gt;2008/12/19&lt;/td&gt;
+         &lt;td&gt;$90,560&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+         &lt;td&gt;Quinn Flynn&lt;/td&gt;
+         &lt;td&gt;Support Lead&lt;/td&gt;
+         &lt;td&gt;Edinburgh&lt;/td&gt;
+         &lt;td&gt;22&lt;/td&gt;
+         &lt;td&gt;2013/03/03&lt;/td&gt;
+         &lt;td&gt;$342,000&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+         &lt;td&gt;Charde Marshall&lt;/td&gt;
+         &lt;td&gt;Regional Director&lt;/td&gt;
+         &lt;td&gt;San Francisco&lt;/td&gt;
+         &lt;td&gt;36&lt;/td&gt;
+         &lt;td&gt;2008/10/16&lt;/td&gt;
+         &lt;td&gt;$470,600&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+         &lt;td&gt;Haley Kennedy&lt;/td&gt;
+         &lt;td&gt;Senior Marketing Designer&lt;/td&gt;
+         &lt;td&gt;London&lt;/td&gt;
+         &lt;td&gt;43&lt;/td&gt;
+         &lt;td&gt;2012/12/18&lt;/td&gt;
+         &lt;td&gt;$313,500&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+         &lt;td&gt;Tatyana Fitzpatrick&lt;/td&gt;
+         &lt;td&gt;Regional Director&lt;/td&gt;
+         &lt;td&gt;London&lt;/td&gt;
+         &lt;td&gt;19&lt;/td&gt;
+         &lt;td&gt;2010/03/17&lt;/td&gt;
+         &lt;td&gt;$385,750&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+         &lt;td&gt;Michael Silva&lt;/td&gt;
+         &lt;td&gt;Marketing Designer&lt;/td&gt;
+         &lt;td&gt;London&lt;/td&gt;
+         &lt;td&gt;66&lt;/td&gt;
+         &lt;td&gt;2012/11/27&lt;/td&gt;
+         &lt;td&gt;$198,500&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+         &lt;td&gt;Paul Byrd&lt;/td&gt;
+         &lt;td&gt;Chief Financial Officer (CFO)&lt;/td&gt;
+         &lt;td&gt;New York&lt;/td&gt;
+         &lt;td&gt;64&lt;/td&gt;
+         &lt;td&gt;2010/06/09&lt;/td&gt;
+         &lt;td&gt;$725,000&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+         &lt;td&gt;Gloria Little&lt;/td&gt;
+         &lt;td&gt;Systems Administrator&lt;/td&gt;
+         &lt;td&gt;New York&lt;/td&gt;
+         &lt;td&gt;59&lt;/td&gt;
+         &lt;td&gt;2009/04/10&lt;/td&gt;
+         &lt;td&gt;$237,500&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+         &lt;td&gt;Bradley Greer&lt;/td&gt;
+         &lt;td&gt;Software Engineer&lt;/td&gt;
+         &lt;td&gt;London&lt;/td&gt;
+         &lt;td&gt;41&lt;/td&gt;
+         &lt;td&gt;2012/10/13&lt;/td&gt;
+         &lt;td&gt;$132,000&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+         &lt;td&gt;Dai Rios&lt;/td&gt;
+         &lt;td&gt;Personnel Lead&lt;/td&gt;
+         &lt;td&gt;Edinburgh&lt;/td&gt;
+         &lt;td&gt;35&lt;/td&gt;
+         &lt;td&gt;2012/09/26&lt;/td&gt;
+         &lt;td&gt;$217,500&lt;/td&gt;
+      &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre></kbd></div>
+                        </div>
+                     <div class="table-responsive">
+                        <div id="datatable-1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+<!--                                    <div class="dataTables_length" id="datatable-1_length">-->
+<!--                                        <label>Show <select name="datatable-1_length" aria-controls="datatable-1" class="custom-select custom-select-sm form-control form-control-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div>-->
+                                <div class="col-sm-12 col-md-6">
+<!--                                    <div id="datatable-1_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="datatable-1"></label></div>-->
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12"><table id="datatable-1" class="table data-table table-striped table-bordered dataTable" role="grid" aria-describedby="datatable-1_info">
+                           <thead>
+                              <tr role="row">
+                                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">ID</th>
+                                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">User</th>
+                                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">Result</th>
+                                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">Percent</th>
+                                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">Number of questions</th>
+                                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">Subject</th>
+                                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">Class Room</th>
+                                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">Test</th>
+                                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">Created</th>
+                                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">Action</th>
+                              </tr>
+                           </thead>
+                           <tbody>
 
-               <a href="{% url 'dlist' tip='user' %}">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3>{{ status }}</h3>
-
-                <p>Users</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-            </div>
-               </a>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-
-               <a href="{% url 'dlist' tip='subject' %}">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3>{{ status }}</h3>
-
-                <p>Subjects</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-            </div>
-               </a>
-          </div>
-          <!-- ./col -->
-        </div>
+        {% for i in result %}
+                       <tr role="row" class="odd">
+                           <td>{{ i.id }}</td>
+                           <td>{{ i.last_name }} {{ i.name }}</td>
+                           <td>{{ i.result }}</td>
+                           <td>{{ i.foyiz }}%</td>
+                           <td>{{ i.totalQuestions }}</td>
+                           <td>{{ i.cname }}</td>
+                           <td>{{ i.classroomname }}</td>
+                           <td>{{ i.testname }}</td>
+                           <td>{{ i.created.day }}</td>
+                        <td>
+                           <a href="{% url "action" status="delete" path="result" pk=i.id %}" class="btn btn-danger ml-4 btn-circle btn-wd">
+                               <i class="fa fa-trash"></i>
+                           </a>
+                       </td>
+                       </tr>
+                    {% endfor %}
+                           </tbody>
+                           <tfoot>
+                              <tr>
+                                  <th rowspan="1" colspan="1">ID</th>
+                                  <th rowspan="1" colspan="1">User</th>
+                                  <th rowspan="1" colspan="1">Result</th>
+                                  <th rowspan="1" colspan="1">Percent</th>
+                                  <th rowspan="1" colspan="1">Number of questions</th>
+                                  <th class="text-right" rowspan="1" colspan="1">Subject</th>
+                                  <th class="text-right" rowspan="1" colspan="1">Class Room</th>
+                                  <th class="text-right" rowspan="1" colspan="1">Test</th>
+                                  <th class="text-right" rowspan="1" colspan="1">Created</th>
+                                  <th class="text-right" rowspan="1" colspan="1">Action</th>
+                              </tr>
+                           </tfoot>
+                        </table>
+                                </div>
+                            </div>
+                            <div class="row">
+<!--                                <div class="col-sm-12 col-md-5">-->
+<!--                                    <div class="dataTables_info" id="datatable-1_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div>-->
+<!--                                <div class="col-sm-12 col-md-7">-->
+<!--                                <div class="dataTables_paginate paging_simple_numbers" id="datatable-1_paginate">-->
+<!--                                    <ul class="pagination"><li class="paginate_button page-item previous disabled" id="datatable-1_previous"><a href="#" aria-controls="datatable-1" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="datatable-1" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="datatable-1" data-dt-idx="2" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="datatable-1" data-dt-idx="3" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="datatable-1" data-dt-idx="4" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item "><a href="#" aria-controls="datatable-1" data-dt-idx="5" tabindex="0" class="page-link">5</a></li><li class="paginate_button page-item "><a href="#" aria-controls="datatable-1" data-dt-idx="6" tabindex="0" class="page-link">6</a></li><li class="paginate_button page-item next" id="datatable-1_next"><a href="#" aria-controls="datatable-1" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li></ul>-->
+<!--                            </div>-->
+<!--                            </div>-->
+                            </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
     {% endif %}
 {% endblock %}
+
+
+
+
+
+

@@ -1,7 +1,7 @@
 from django.urls import path
 from core.quiz import index, new_test, create_test, user_profile, test, test_answer
 from core.auth import sign_in, sign_out
-from .dashboard import dlist, home, action, form, locked
+from .dashboard import dlist, home, action, form, locked, lock
 from .quiz.index import required
 
 urlpatterns = [
@@ -23,7 +23,8 @@ urlpatterns = [
     path("action/<str:status>/<str:path>/", action, name='action_no_pk'),
     path("subject/<int:pk>/", index, name="sub"),
     path("form/user/", form, name="userform"),
-    path("dashboard/locked/", locked, name="locked"),
+    path("dashboard/lockedd/", required, name="lockedd"),
+    path("locked/", lock, name="lock"),
     path("required/", required, name="required"),
     # path("dashboard/classRooms/<st:str>/", classroom, name="classroom"),
     # path("dashboard/subject/<st:str>/", subject, name="subject"),
