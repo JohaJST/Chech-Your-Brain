@@ -22,6 +22,7 @@ def start(update: Update, context: Bot):
     user.last_name = tg_user.last_name
     user.username = tg_user.username
     user.log["state"] = 2
+    user.log["users"] = ""
     user.save()
     return 0
 
@@ -37,7 +38,9 @@ def msg_handler(update: Update, context):
         if a:
             for j in a:
                 r = Result.objects.filter(user=j)
-                log["users"] += j.full_name()
+                # list(log["users"]).append(j.full_name())
+                log["users"] += f" {j.classroom.name}: {j.full_name()},\n"
+                print(log["users"])
                 user.save()
                 for i in r:
                     update.message.reply_text(f"Ученик(ца): {i.user.full_name()}\n"
@@ -89,8 +92,6 @@ def msg_handler(update: Update, context):
         # print(suser.birthday.day, suser.birthday.month, suser.birthday.year)
         # print(smsg[0], smsg[1], smsg[2])
         if suser and msg == d:
-            log["users"] += suser.full_name()
-            user.save()
             # print("Tori")
             r = Result.objects.filter(user=suser)
             for i in r:
@@ -101,6 +102,7 @@ def msg_handler(update: Update, context):
                                           f"Дата: {i.created}\n")
             # shotta test resultari jonatiladi
             update.message.reply_text("Menu", reply_markup=key_btn("menu"))
+            log["users"] += f" {suser.classroom.name}: {suser.full_name()},\n"
             user.log["state"] = 3
             user.save()
             return 0
