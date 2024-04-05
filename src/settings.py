@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "core",
     "bot",
+    "import_export"
 ]
 
 MIDDLEWARE = [
