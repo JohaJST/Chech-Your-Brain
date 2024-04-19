@@ -14,10 +14,12 @@ def sign_in(requests):
     }
     if requests.POST:
         data = requests.POST
-        n = data["user"].split(".")
-        print(n)
-        user = User.objects.filter(last_name=n[0], name=n[1]).first()
-
+        # print(data)
+        # n = data["user"].split(".")
+        # print(n)
+        # user = User.objects.filter(last_name=n[0], name=n[1]).first()
+        user = User.objects.filter(username=data["user"]).first()
+        # print(user)
         if not user:
             ctx["error"] = "Ученик(ца) не найдено"
             return render(requests, 'pages/auth/login.html', ctx)

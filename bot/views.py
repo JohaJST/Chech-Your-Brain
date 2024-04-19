@@ -1,8 +1,3 @@
-from contextlib import closing
-
-from django.db import connection
-from methodism.helper import dictfetchall, dictfetchone
-
 from core.models import User, TG_User, ClassRooms, Result
 from telegram import Update, Bot, ReplyKeyboardRemove
 from bot.btn import key_btn

@@ -11,6 +11,6 @@ class Command(BaseCommand):
         updater.dispatcher.add_handler(CommandHandler("start", start))
         updater.dispatcher.add_handler(MessageHandler(Filters.text, msg_handler))
         updater.dispatcher.add_handler(MessageHandler(Filters.contact, contact_hand))
-
+        print("1")
         updater.start_polling()
         updater.idle()

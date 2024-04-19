@@ -282,14 +282,16 @@
             <form method="post" class="form_form">
                 {% csrf_token %}
                 <div class="inputBox">
-                    <select name="classroom" id="mainSelect" onchange="updateOptions()">
+                    <select required style="width: 100%; background: yellow; height: 25px;" name="classroom" id="mainSelect" onchange="updateOptions()">
                         <option disabled="" selected="">Select ClassRoom</option>
                         {% for i in c %}
                             <option value="{{ i.id }}">{{ i.name }}</option>
                         {% endfor %}
                     </select>
                     <br>
-                    <select name="user" id="dependentSelect"></select>
+                    <select required style="width:100%; background: green; margin-top: 10px; height: 25px;" name="user" id="dependentSelect">
+
+                    </select>
 
                   </div>
 <!--                <div class="links" style="margin-top: 20px;">-->
@@ -330,7 +332,7 @@
 
         // Populate options based on JSON data
         optionsData[selectedCategory].forEach(option => {
-            dependentSelect.add(new Option(option, option.replace(' ', '.')));
+            dependentSelect.add(new Option(option, option));
         });
     }
 </script>
