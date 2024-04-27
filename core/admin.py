@@ -1,7 +1,7 @@
 from contextlib import closing
 
 from import_export.admin import ImportExportModelAdmin
-from .resource import UserResource, VariantResource, ResultResource, SUbjectResource, TestResource, OldResulrResource,\
+from .resource import UserResource, VariantResource, ResultResource, SUbjectResource, TestResource, OldResulrResource, \
     QuestionResource, CLassroomResource, TG_UserResource, TestClassRoomResource, ClassRoomsSubjectsResource
 
 from django.contrib import admin
@@ -15,11 +15,14 @@ from core.models import TG_User, User, ClassRooms, Subject, Variant, Question, T
 class UserAdmin(ImportExportModelAdmin):
     resource_class = UserResource
 
+
 class TestClassRoomAdmin(ImportExportModelAdmin):
     resource_class = TestClassRoomResource
 
+
 class ClassRoomSubjectAdmin(ImportExportModelAdmin):
     resource_class = ClassRoomsSubjectsResource
+
 
 class TgUserAdmin(ImportExportModelAdmin):
     resource_class = TG_UserResource

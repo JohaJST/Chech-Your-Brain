@@ -311,14 +311,10 @@
 <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 <script>
     const optionsData = {
-        {% for i in c %}
-            {{ i.id }}: [
-            {% for j in u %}
-                {% if j.classroom.id == i.id %}
-                    '{{ j.full_name }}',
-                {% endif %}
-            {% endfor %}
-            ],
+        {% for i in c %}{{ i.id }}: [
+        {% for j in u %}{% if j.classroom.id == i.id %}
+        '{{ j.full_name }}',{% endif %}{% endfor %}
+        ],
         {% endfor %}
     };
 

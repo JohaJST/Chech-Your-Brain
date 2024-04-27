@@ -36,6 +36,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         (3, "User"),
     ])  # user type
 
+    interval = models.DateTimeField(auto_now_add=True, auto_now=False, null=True, blank=True, editable=True)
+
     in_dashboard = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)

@@ -81,16 +81,16 @@ def locked(request):
 
 @login_required(login_url="login")
 def lock(request):
-    print(1)
+    # print(1)
     if request.method == "POST":
         # s
-        print(11)
+        # print(11)
         request.user.in_dashboard = request.user.check_password(request.POST.get("pass"))
         request.user.save()
-        print(12)
+        # print(12)
         return redirect("dashboard")
     if not request.user.is_admin:
-        print(22)
+        # print(22)
         return redirect("home")
-    print(3)
+    # print(3)
     return render(request, "pages/dashboard/pass.html")

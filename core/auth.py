@@ -29,6 +29,8 @@ def sign_in(requests):
             ctx["error"] = "Профиль не активен"
             return render(requests, 'pages/auth/login.html', ctx)
         login(requests, user)
+        if user.is_admin:
+            return redirect("lock")
         return redirect('home')
 
     return render(requests, 'pages/auth/login.html', ctx)
