@@ -3,6 +3,7 @@ from django.db import models
 from core.models import ClassRooms, Subject, User
 
 
+
 class Test(models.Model):
     name = models.CharField(max_length=256)
     desc = models.TextField(null=True, blank=True)
@@ -19,10 +20,16 @@ class Test(models.Model):
         return super(Test, self).save(*args, **kwargs)
 
 
+class TestVarianta(models.Model):
+    test = models.ForeignKey(Test, on_delete=models.CASCADE)
+    variant = models.IntegerField(default=1)
+
+
+
 class Question(models.Model):
     text = models.TextField(null=True, blank=True)
     img = models.ImageField(null=True, blank=True)
-    test = models.ForeignKey(Test, on_delete=models.CASCADE)
+    test = models.ForeignKey(TestVarianta, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True, auto_now=False, null=True, blank=True, editable=False)
 
     def __str__(self):
@@ -71,3 +78,5 @@ class TestClassRoom(models.Model):
 
     def __str__(self):
         return f"{self.test} | {self.classroom}"
+
+
