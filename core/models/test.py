@@ -3,6 +3,7 @@ from django.db import models
 from core.models import ClassRooms, Subject, User
 
 
+
 class Test(models.Model):
     name = models.CharField(max_length=256)
     desc = models.TextField(null=True, blank=True)
@@ -19,10 +20,16 @@ class Test(models.Model):
         return super(Test, self).save(*args, **kwargs)
 
 
+class TestVarianta(models.Model):
+    test = models.ForeignKey(Test, on_delete=models.CASCADE)
+    variant = models.IntegerField(default=1)
+
+
+
 class Question(models.Model):
     text = models.TextField(null=True, blank=True)
     img = models.ImageField(null=True, blank=True)
-    test = models.ForeignKey(Test, on_delete=models.CASCADE)
+    test = models.ForeignKey(TestVarianta, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True, auto_now=False, null=True, blank=True, editable=False)
 
     def __str__(self):
@@ -45,10 +52,21 @@ class Result(models.Model):
     totalQuestions = models.IntegerField(null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     test = models.ForeignKey(Test, on_delete=models.CASCADE)
-    created = models.DateTimeField(auto_now_add=True, auto_now=False, null=True, blank=True, editable=False)
+    created = models.DateField(auto_now_add=True, auto_now=False, null=True, blank=True, editable=False)
 
     def __str__(self):
         return f"{self.user} | {self.result} {self.test}"
+
+
+class OldResult(models.Model):
+    foyiz = models.IntegerField(null=True, blank=True)
+    result = models.IntegerField(null=True)
+    totalQuestions = models.IntegerField(null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    test = models.ForeignKey(Test, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.user} || {self.result} || {self.test}"
 
     # def save(self, *args, **kwargs):
     #     self.foyiz = self.test.
@@ -60,3 +78,5 @@ class TestClassRoom(models.Model):
 
     def __str__(self):
         return f"{self.test} | {self.classroom}"
+
+

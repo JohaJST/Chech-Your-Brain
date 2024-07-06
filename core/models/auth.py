@@ -25,6 +25,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=256, null=True)
     classroom = models.ForeignKey(ClassRooms, on_delete=models.SET_NULL, null=True)
     just = models.BooleanField(default=False)
+    birthday = models.DateField(null=True, blank=True)
+    phone = models.CharField(max_length=20, null=True, blank=True)
 
     log = models.JSONField(default={'state': 0}, null=True)
     lang = models.CharField(default='uz', max_length=2, choices=[("uz", 'uz'), ("ru", 'ru'), ("en", 'en'),], null=True)
@@ -34,12 +36,15 @@ class User(AbstractBaseUser, PermissionsMixin):
         (3, "User"),
     ])  # user type
 
+    interval = models.DateTimeField(auto_now_add=True, auto_now=False, null=True, blank=True, editable=True)
+
+    in_dashboard = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
-    created = models.DateTimeField(auto_now_add=True, auto_now=False, null=True, editable=False)
+    created = models.DateField(auto_now_add=True, auto_now=False, null=True, editable=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True, null=True)
     objects = CustomUserManager()
 
@@ -70,7 +75,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         }
 
     def __str__(self):
-        return f"{self.id} || {self.full_name()} || {self.username}"
+        return f"{self.full_name()} || {self.username}"
+
+    def save(self, *args, **kwargs):
+        if not self.username or self.username is None:
+            self.username = self.full_name()
+        return super(User, self).save(*args, **kwargs)
 
 
 class Otp(models.Model):
@@ -102,18 +112,13 @@ class Otp(models.Model):
 class TG_User(models.Model):
     user_id = models.BigIntegerField(unique=True)
     phone = models.CharField('Phone', unique=True, max_length=50)
-    username = models.CharField(max_length=128)
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    classroom = models.ForeignKey(ClassRooms, on_delete=models.SET_NULL, null=True, blank=True)
+    username = models.CharField(max_length=128, null=True)
+    first_name = models.CharField(max_length=255, null=True)
+    last_name = models.CharField(max_length=255, null=True)
 
     log = models.JSONField(default={'state': 0})
     lang = models.CharField(default='uz', max_length=2, choices=[("uz", 'uz'), ("ru", 'ru'), ("en", 'en'), ])
-    ut = models.SmallIntegerField(verbose_name="User Type", default=3, choices=[
-        (1, 'Admin'),
-        (2, "Teacher"),
-        (3, "User"),
-    ])  # user type
+
     is_admin = models.BooleanField(default=False)
 
     created = models.DateTimeField(auto_now_add=True, auto_now=False, null=True, editable=False)
@@ -126,21 +131,14 @@ class TG_User(models.Model):
         return f"{self.last_name} {self.first_name}"
 
     def tg_user_format(self):
-        ut = {
-            1: 'Admin',
-            2: "Teacher",
-            3: "User",
-        }[self.ut]
         return {
             "tg_user_id": self.user_id,
             'mobile': self.phone,
             'username': self.username,
-            "ClassRoom": self.classroom,
             'first_name': self.first_name,
             'last_name': self.last_name,
             'lang': self.lang,
             "log": self.log,
-            'user_type': ut,
             "created": self.created,
             "updated": self.updated
         }

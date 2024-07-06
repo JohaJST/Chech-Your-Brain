@@ -1,7 +1,8 @@
 from django.urls import path
 from core.quiz import index, new_test, create_test, user_profile, test, test_answer
 from core.auth import sign_in, sign_out
-from .dashboard import dlist, home, action, form
+from .dashboard import dlist, home, action, form, locked, lock
+from .quiz.index import required
 
 urlpatterns = [
     path("", index, name="home"),
@@ -13,11 +14,18 @@ urlpatterns = [
     path("test/new/", new_test, name="new_test"),
     path("test/create/", create_test, name="create_test"),
     path("dashboard/", home, name="dashboard"),
+    path("dashboard/<str:status>/", home, name="dashboard_subject"),
+    path("dashboard/<str:status>/<int:subject_id>/", home, name="dashboard_classroom"),
+    path("dashboard/<str:status>/<int:classroom_id>/", home, name="dashboard_user"),
+    path("dashboard/<str:status>/<int:classroom_id>/<int:user_id>/", home, name="dashboard_result"),
     path("dashboard/list/<str:tip>/", dlist, name="dlist"),
     path("action/<str:status>/<str:path>/<int:pk>/", action, name='action'),
     path("action/<str:status>/<str:path>/", action, name='action_no_pk'),
     path("subject/<int:pk>/", index, name="sub"),
-    path("form/user/", form, name="userform")
+    path("form/user/", form, name="userform"),
+    path("dashboard/lockedd/", required, name="lockedd"),
+    path("locked/", lock, name="lock"),
+    path("required/", required, name="required"),
     # path("dashboard/classRooms/<st:str>/", classroom, name="classroom"),
     # path("dashboard/subject/<st:str>/", subject, name="subject"),
     # path("dashboard/classRooms/<st:str>/<pk:int>/", classroom, name="classroom"),
